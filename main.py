@@ -17,7 +17,7 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(title="User Registration API", lifespan=lifespan)
 app.include_router(auth_router, prefix="/api/v1")
-app .include_router(chat_router,prefix="/api/v1")
+app.include_router(chat_router, prefix="/api/v1")
 @app.get("/")
 def home():
     return {"message": "User Registration API is running"}
