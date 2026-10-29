@@ -12,7 +12,6 @@ class Base(DeclarativeBase):
 
 
 engine = create_engine(settings.DATABASE_URL, pool_pre_ping=True)
-print(f"Database URL: {settings.DATABASE_URL}")
 SessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False)
 
 
