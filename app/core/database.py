@@ -1,5 +1,4 @@
 from collections.abc import Iterator
-from collections.abc import Iterator
 
 from sqlalchemy import create_engine, text
 from sqlalchemy.exc import SQLAlchemyError
@@ -13,13 +12,19 @@ class Base(DeclarativeBase):
 
 
 def _normalize_url(url: str) -> str:
+    # Render "postgres://" kinva "postgresql://" deto.
+    # psycopg2-binary vaparayche aslyamule driver explicitly sangto.
     if url.startswith("postgres://"):
         return url.replace("postgres://", "postgresql+psycopg2://", 1)
     if url.startswith("postgresql://"):
         return url.replace("postgresql://", "postgresql+psycopg2://", 1)
     return url
 
-engine = create_engine(settings.DATABASE_URL, pool_pre_ping=True)
+
+engine = create_engine(
+    _normalize_url(settings.DATABASE_URL),
+    pool_pre_ping=True,
+)
 SessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False)
 
 
@@ -35,11 +40,11 @@ def test_connection():
 
         return {
             "database": "connected",
-            "message": "Database connection successful"
+            "message": "Database connection successful",
         }
 
     except SQLAlchemyError as e:
         return {
             "database": "not connected",
-            "error": str(e)
+            "error": str(e),
         }
