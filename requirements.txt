@@ -3,7 +3,7 @@ uvicorn[standard]
 sqlalchemy>=2.0
 python-dotenv
 anthropic
-psycopg2-binary
+# psycopg2-binary
 PyJWT>=2.8,<3.0
 psycopg[binary]
 google-genai
