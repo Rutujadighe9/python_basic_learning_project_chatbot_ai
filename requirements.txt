@@ -5,3 +5,5 @@ python-dotenv
 anthropic
 psycopg2-binary
 PyJWT>=2.8,<3.0
+psycopg[binary]
+google-genai
