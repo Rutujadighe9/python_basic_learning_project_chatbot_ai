@@ -13,13 +13,12 @@ class Base(DeclarativeBase):
 
 def _normalize_url(url: str) -> str:
     # Render "postgres://" kinva "postgresql://" deto.
-    # psycopg2-binary vaparayche aslyamule driver explicitly sangto.
+    # Ata psycopg (v3) install aahe, mhanun driver +psycopg sanga.
     if url.startswith("postgres://"):
-        return url.replace("postgres://", "postgresql+psycopg2://", 1)
+        return url.replace("postgres://", "postgresql+psycopg://", 1)
     if url.startswith("postgresql://"):
-        return url.replace("postgresql://", "postgresql+psycopg2://", 1)
+        return url.replace("postgresql://", "postgresql+psycopg://", 1)
     return url
-
 
 engine = create_engine(
     _normalize_url(settings.DATABASE_URL),
